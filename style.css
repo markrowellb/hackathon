@@ -4,13 +4,13 @@ body{
   padding: 2vw;
 }
 h1 {
-}
   text-align:center;
+}
 .inp_mon {
   display: inline-block;
   background: transparent;
   border: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #d1d1d1;
   width: 100px;
   text-align: right;
   padding: 10px;
@@ -28,7 +28,7 @@ h1 {
 .cont {
   background: #fff;
   margin: auto;
-  width: 80%;
+  width: 400px;
   padding: 30px 15px;
   -webkit-box-shadow: 4px 4px 10px 2px rgba(176,176,176,0.5);
   -moz-box-shadow: 4px 4px 10px 2px rgba(176,176,176,0.5);
@@ -56,4 +56,20 @@ p {
 a {
   text-decoration: none;
   color: inherit;
+}
+.see_table {
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+}
+.txtc{
+  text-align: center;
+}
+#baseCurr {
+  font-weight: 600;
+    color: #0182c4;
+    border-bottom: 1px solid black;
+    width: 50%;
+    margin: 25px auto;
+    padding-bottom: 5px;
 }

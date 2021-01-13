@@ -8,15 +8,19 @@
 		
 		<!-- CSS -->
 		<link href="style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 		<!-- Script -->
 		<script src="script.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 	</head>
-	<body>
-		<div>
-			<h1>Dynamic Currency Converter</h1>
-			<div  class="cont">
-				<div class="cont_row">
-					<select id="curr1" oninput="solveIt()" class="curr_select">
+	<body onload="solveIt()"> <!-- execute the solveIt() function when the contents of the body is completely loaded -->
+	<div>
+		<h1>Dynamic Currency Converter</h1>
+		<div  class="cont">
+			<span id="test"></span>
+			<div class="cont_row">
+				<select id="curr1" oninput="solveIt()" class="curr_select">
 					<option value="USD">US Dollar</option>
 					<option value="JPY">Japanese Yen</option>
 					<option value="BGN">Bulgarian Lev</option>
@@ -50,50 +54,64 @@
 					<option value="THB">Thailand Baht</option>
 					<option value="ZAR">South African Rand</option>
 				</select>
-					<input id="mon_value1" class="inp_mon" oninput="solveIt()"/><span id="code1" class="mon_code"></span>
-				</div>
-				<div class="cont_row">
-					<select id="curr2" oninput="solveIt()" class="curr_select">
-						<option value="USD">US Dollar</option>
-						<option value="JPY">Japanese Yen</option>
-						<option value="BGN">Bulgarian Lev</option>
-						<option value="CZK">Czech Koruna</option>
-						<option value="DKK">Danish Krone</option>
-						<option value="GBP">Pound Sterling</option>
-						<option value="HUF">Hungarian Forint</option>
-						<option value="PLN">Polish Zloty</option>
-						<option value="RON">Romanian Leu</option>
-						<option value="SEK">Swedish Krona</option>
-						<option value="CHF">Swiss Franc</option>
-						<option value="ISK">Icelandic Krona</option>
-						<option value="NOK">Norweigan Krone</option>
-						<option value="HRK">Croatian Kuna</option>
-						<option value="RUB">Russian Rouble</option>
-						<option value="TRY">Turkish Lira</option>
-						<option value="AUD">Australian Dollar</option>
-						<option value="BRL">Brazilian Real</option>
-						<option value="CAD">Candaian Dollar</option>
-						<option value="CNY">Chinese Yuan</option>
-						<option value="HKD">Hong Kong Dollar</option>
-						<option value="IDR">Indonesian Rupiah</option>
-						<option value="ILS">Israeli Shekel</option>
-						<option value="INR">Indian Rupee</option>
-						<option value="KRW">South Korean Won</option>
-						<option value="MXN">Mexican Peso</option>
-						<option value="MYR">Malaysian Ringgit</option>
-						<option value="NZD">New Zealand Dollar</option>
-						<option value="PHP">Philippine Peso</option>
-						<option value="SGD">Singapore Dollar</option>
-						<option value="THB">Thailand Baht</option>
-						<option value="ZAR">South African Rand</option>
-					</select>
-					<span id="mon_value2" class="inp_mon" style="border:none"></span><span class="mon_code" id="code2"></span>
-				</div>
-				<div class="remarks">
-					<p id="curr_rate"></p>
-					<p id="today"></p>
-				</div>
+				<input id="mon_value1" class="inp_mon" oninput="solveIt()"/><span id="code1" class="mon_code"></span>
+			</div>
+			<div class="cont_row">
+				<select id="curr2" oninput="solveIt()" class="curr_select">
+					<option value="USD">US Dollar</option>
+					<option value="JPY">Japanese Yen</option>
+					<option value="BGN">Bulgarian Lev</option>
+					<option value="CZK">Czech Koruna</option>
+					<option value="DKK">Danish Krone</option>
+					<option value="GBP">Pound Sterling</option>
+					<option value="HUF">Hungarian Forint</option>
+					<option value="PLN">Polish Zloty</option>
+					<option value="RON">Romanian Leu</option>
+					<option value="SEK">Swedish Krona</option>
+					<option value="CHF">Swiss Franc</option>
+					<option value="ISK">Icelandic Krona</option>
+					<option value="NOK">Norweigan Krone</option>
+					<option value="HRK">Croatian Kuna</option>
+					<option value="RUB">Russian Rouble</option>
+					<option value="TRY">Turkish Lira</option>
+					<option value="AUD">Australian Dollar</option>
+					<option value="BRL">Brazilian Real</option>
+					<option value="CAD">Candaian Dollar</option>
+					<option value="CNY">Chinese Yuan</option>
+					<option value="HKD">Hong Kong Dollar</option>
+					<option value="IDR">Indonesian Rupiah</option>
+					<option value="ILS">Israeli Shekel</option>
+					<option value="INR">Indian Rupee</option>
+					<option value="KRW">South Korean Won</option>
+					<option value="MXN">Mexican Peso</option>
+					<option value="MYR">Malaysian Ringgit</option>
+					<option value="NZD">New Zealand Dollar</option>
+					<option value="PHP">Philippine Peso</option>
+					<option value="SGD">Singapore Dollar</option>
+					<option value="THB">Thailand Baht</option>
+					<option value="ZAR">South African Rand</option>
+				</select>
+				<span id="mon_value2" class="inp_mon" style="border:none"></span><span class="mon_code" id="code2"></span>
+			</div>
+			<div class="remarks">
+				<p id="curr_rate"></p>
+				<p id="today"></p>
 			</div>
 		</div>
-	</body>
+	</div>
+	<div id="rate_table" class="modal" style="width:400px">
+		<a href="#" style="position:absolute; right: 25px" rel="modal:close">▼</a>
+		<h3 class="txtc">Euro Foreign Exchange Reference Rates</h3>
+		<p id="baseCurr"></p>
+		<div style="display:flex; width: 60%; margin:auto">
+		  <div id="rate1" style="flex:2; text-align:right">
+		  </div>
+		  <div id="ratecode" style="flex:1; margin-left:5px">
+				
+		  </div>
+		
+		</div>
+	</div>
+</body>
+	
 </html>
